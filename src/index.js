@@ -3,8 +3,8 @@ import '/css/common.scss';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 import Notiflix from 'notiflix';
-import ImagesApiService from '/js/images-service.js';
-import markupImages from '/js/render-card-markup.js';
+import ImagesApiService from './js/images-service.js';
+import markupImages from './js/render-card-markup.js';
 
 //!Variables
 const refs = {
