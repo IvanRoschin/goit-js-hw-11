@@ -87,18 +87,18 @@ function clearImageContainer() {
 }
 
 // 1.6. Infinity scroll
+
 const onEntry = entries => {
   entries.forEach(entry => {
     if (entry.isIntersecting && imagesApiService.query !== '') {
-      console.log('пора грузить статьи');
       feachMore();
     }
   });
 };
-const options = {
+
+let observer = new IntersectionObserver(onEntry, {
   rootMargin: '200px',
-};
-let observer = new IntersectionObserver(onEntry, options);
+});
 observer.observe(refs.sentinel);
 
 function feachMore() {
@@ -113,17 +113,3 @@ function feachMore() {
     imagesApiService.incrementPage();
   });
 }
-
-// 1.7. Smooth scroll
-
-// function smoothScroll(elements) {
-//   appendImagesMarkup(elements);
-//   lightbox.refresh();
-//   const { height: cardHeight } = document
-//     .querySelector('.gallery')
-//     .firstElementChild.getBoundingClientRect();
-//   window.scrollBy({
-//     top: cardHeight * 2,
-//     behavior: 'smooth',
-//   });
-// }
