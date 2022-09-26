@@ -1,10 +1,10 @@
-import './sass/index.scss';
+import '../src/sass/index.scss';
 
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 import Notiflix from 'notiflix';
-import ImagesApiService from './js/images-service.js';
-import markupImages from './js/render-card-markup.js';
+import ImagesApiService from '../src/js/images-service';
+import markupImages from '../src/js/render-card-markup';
 
 //!Variables
 const refs = {
