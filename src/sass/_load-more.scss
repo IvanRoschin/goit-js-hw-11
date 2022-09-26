@@ -1,0 +1,30 @@
+.load-more {
+    width: 200px;
+    height: 40px;
+
+    margin-top: 50px;
+    margin-bottom: 30px;
+    margin-left: 50%;
+    transform: translateX(-50%);
+
+    font-size: 16px;
+    font-weight: 700;
+
+    border: 1px solid rgb(64, 86, 180);
+    border-radius: 8px;
+
+    cursor: pointer;
+    transition: font-weight 250ms linear, color 250ms linear,
+        background-color 250ms linear;
+
+    &:hover,
+    &:focus {
+        background-color: rgb(64, 86, 180);
+        color: #ffffff;
+        font-weight: 700;
+    }
+
+    &.is-hidden {
+        display: none;
+    }
+}

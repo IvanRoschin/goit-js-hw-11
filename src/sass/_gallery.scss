@@ -1,0 +1,50 @@
+.gallery {
+display: flex;
+    flex-wrap: wrap;
+    margin-right: calc(-1 * 20px);
+    margin-bottom: calc(-1 * 20px);
+    padding-top: 100px;
+    padding-right: 20px;
+    padding-left: 20px;
+}
+
+.photo-card {
+    flex-basis: calc(100% / 4 - 20px);
+    margin-right: 20px;
+    margin-bottom: 30px;
+    box-shadow: 5px 5px 14px -5px rgba(34, 60, 80, 0.6);
+    transition: 500ms;
+}
+
+.photo-card:not(:nth-child(4n)) {
+    margin-right: 15px;
+}
+
+.photo-card:not(:nth-last-child(-n + 4)) {
+    margin-bottom: 15px;
+}
+
+.photo-card__img {
+    object-fit: cover;
+    overflow: hidden;
+    width: 100%;
+    height: 200px;
+}
+
+.info {
+    display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 15px;
+}
+
+.info-item {
+    display: flex;
+        flex-direction: column;
+        text-align: center;
+}
+
+
+
+
+
