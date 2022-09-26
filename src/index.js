@@ -5,20 +5,21 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 import Notiflix from 'notiflix';
 import ImagesApiService from './js/images-service.js';
 import markupImages from './js/render-card-markup.js';
+import './js/component/io.js';
 
 //!Variables
 const refs = {
   searchForm: document.querySelector('.js-search-form'),
   galleryContainer: document.querySelector('.gallery'),
-  loadMoreBtn: document.querySelector('.load-more'),
+  sentinel: document.querySelector('#sentinel'),
+  // loadMoreBtn: document.querySelector('.load-more'),
 };
 
 const imagesApiService = new ImagesApiService();
 
 //!Listeners
 refs.searchForm.addEventListener('submit', onSearch);
-refs.loadMoreBtn.addEventListener('click', onLoadMore);
-window.addEventListener('scroll', smoothScroll);
+// refs.loadMoreBtn.addEventListener('click', onLoadMore);
 
 // !Functions
 // 1.1. Запрос на бекенд
@@ -40,7 +41,7 @@ async function renderGallery() {
   try {
     imagesApiService.fetchImages().then(data => {
       clearImageContainer();
-      refs.loadMoreBtn.classList.remove('is-hidden');
+      // refs.loadMoreBtn.classList.remove('is-hidden');
       if (!data.hits.length) {
         Notiflix.Notify.warning(
           `Sorry, there are no images matching your search query. Please try again.`
@@ -63,18 +64,19 @@ async function renderGallery() {
 }
 
 // 1.3. Загрузить больше
-function onLoadMore() {
-  imagesApiService.fetchImages().then(data => {
-    if (data.hits.totalHits === data.hits.totalPages) {
-      Notiflix.Notify.info(
-        "We're sorry, but you've reached the end of search results."
-      );
-      refs.loadMoreBtn.classList.add('is-hidden');
-      return;
-    }
-    appendImagesMarkup(data);
-  });
-}
+// function onLoadMore() {
+//   imagesApiService.fetchImages().then(data => {
+//     if (data.hits.totalHits === data.hits.totalPages) {
+//       Notiflix.Notify.info(
+//         "We're sorry, but you've reached the end of search results."
+//       );
+//       refs.loadMoreBtn.classList.add('is-hidden');
+//       return;
+//     }
+//     appendImagesMarkup(data);
+//   });
+// }
+
 // 1.4. Добавляем разметку в хтмл
 function appendImagesMarkup(images) {
   refs.galleryContainer.insertAdjacentHTML('beforeend', markupImages(images));
@@ -83,3 +85,43 @@ function appendImagesMarkup(images) {
 function clearImageContainer() {
   refs.galleryContainer.innerHTML = '';
 }
+
+// 1.4. Infinity scroll
+const onEntry = entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      console.log('пора грузить статьи');
+      feachMore();
+    }
+  });
+};
+const options = {
+  rootMargin: '100px',
+};
+let observer = new IntersectionObserver(onEntry, options);
+observer.observe(refs.sentinel);
+
+function feachMore() {
+  imagesApiService.fetchImages().then(data => {
+    if (data.hits.length < 40) {
+      Notiflix.Notify.info(
+        "We're sorry, but you've reached the end of search results."
+      );
+      return;
+    }
+    appendImagesMarkup(data);
+    imagesApiService.incrementPage();
+  });
+}
+
+// function smoothScroll(elements) {
+//   appendImagesMarkup(elements);
+//   lightbox.refresh();
+//   const { height: cardHeight } = document
+//     .querySelector('.gallery')
+//     .firstElementChild.getBoundingClientRect();
+//   window.scrollBy({
+//     top: cardHeight * 2,
+//     behavior: 'smooth',
+//   });
+// }

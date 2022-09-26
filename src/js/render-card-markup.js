@@ -3,8 +3,6 @@ export default function markupImages(data) {
   return hits
     .map(
       ({ webformatURL, largeImageURL, views, likes, comments, downloads }) => {
-        console.log(data);
-        console.log(largeImageURL);
         return `
 
 <div class="photo-card">
