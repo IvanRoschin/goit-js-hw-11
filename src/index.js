@@ -22,6 +22,8 @@ refs.searchForm.addEventListener('submit', onSearch);
 // refs.loadMoreBtn.addEventListener('click', onLoadMore);
 
 // !Functions
+feachMore();
+
 // 1.1. Запрос на бекенд
 
 function onSearch(e) {
