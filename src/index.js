@@ -46,7 +46,7 @@ async function renderGallery() {
         Notiflix.Notify.warning(
           `Sorry, there are no images matching your search query. Please try again.`
         );
-        refs.loadMoreBtn.classList.add('is-hidden');
+        // refs.loadMoreBtn.classList.add('is-hidden');
         return;
       }
       appendImagesMarkup(data);
@@ -86,17 +86,17 @@ function clearImageContainer() {
   refs.galleryContainer.innerHTML = '';
 }
 
-// 1.4. Infinity scroll
+// 1.6. Infinity scroll
 const onEntry = entries => {
   entries.forEach(entry => {
-    if (entry.isIntersecting) {
+    if (entry.isIntersecting && imagesApiService.query !== '') {
       console.log('пора грузить статьи');
       feachMore();
     }
   });
 };
 const options = {
-  rootMargin: '100px',
+  rootMargin: '200px',
 };
 let observer = new IntersectionObserver(onEntry, options);
 observer.observe(refs.sentinel);
@@ -113,6 +113,8 @@ function feachMore() {
     imagesApiService.incrementPage();
   });
 }
+
+// 1.7. Smooth scroll
 
 // function smoothScroll(elements) {
 //   appendImagesMarkup(elements);
