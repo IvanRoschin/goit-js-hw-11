@@ -22,7 +22,6 @@ refs.searchForm.addEventListener('submit', onSearch);
 // refs.loadMoreBtn.addEventListener('click', onLoadMore);
 
 // !Functions
-feachMore();
 
 // 1.1. Запрос на бекенд
 
@@ -105,6 +104,8 @@ observer.observe(refs.sentinel);
 
 function feachMore() {
   imagesApiService.fetchImages().then(data => {
+    appendImagesMarkup(data);
+    imagesApiService.incrementPage();
     if (data.hits.length < 40) {
       Notiflix.Notify.info(
         "We're sorry, but you've reached the end of search results."
